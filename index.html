@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <!-- We need the following responsive meta tag to ensure things scale correctly across varying devices. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <title>Weather Dashboard</title>
+    
+        <!-- Stylesheet made for this webpage and also need to bring in the bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="asset/style.css">
+    
+        <!-- Java scripts from bootstrap CDN and others -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/70fcd40144.js" crossorigin="anonymous"></script>
+    
+    </head>
+    
+    <!-- page background color -->
+    <body style="background-color:whitesmoke;">
+    
+    <!-- set header -->
+    <header>
+        <div class="heading">
+            <h1>Weather Dashboard</h1>
+        </div>
+    </header>
+        
+    <div class="container-aside">
+        <div class="row">
+            <!-- city list -->
+            <div class="col-md-4">
+                <h2>Search for a City:</h2>
+                <form class="form-inline">
+                        <input type="text" class="form-control" id="city-input">
+                <button id="search-button" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </form>
+                <ul id="cityList" class="listGroup"></ul>
+                <ul id="cityList" class="listGroup">abc </ul>
+                <ul id="cityList" class="listGroup">xyz </ul>
+            </div>
+            <!-- jumbo tron for current city weather -->   
+            <div class="col-md-8">
+                <div class="jumbotron">
+                    <!-- Retrieved data will be dumped here -->
+                    <h2 class="city"></h2>
+                    <h3 class="temp"></h3>
+                    <h3 class="humidity"></h3>
+                    <h3 class="windspeed"></h3>
+                    <h3 class="UV"></h3>
+                    <hr class="my-4">
+                </div>
+                <h1>5-Day Forecast</h1>
+                <div class="card-deck">
+                    <div class="card bg-primary">
+                        <div class="card-body text-center">
+                            <p class="card-text">Some text inside the first card</p>
+                        </div>
+                    </div>
+                    <div class="card bg-primary">
+                        <div class="card-body text-center">
+                            <p class="card-text">Some text inside the 2nd card</p>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var cities=[];
+
+        function getCityWeather(city) {
+            // retrieve data from weahter api
+            // and display in the jumbotron
+            var unit = "imperial";
+            var key = "&appid=c8b1342661ea81476ed22662aa7fc4c3";
+            var cLat;
+            var cLon;
+
+            
+            var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + unit + key;
+            console.log ("url:", queryURL);
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response) {           
+                $(".city").text(response.name + " Weather Details");
+                $(".temp").html("Temperature: " + response.main.temp + "&#8457 "+response.weather.icon);
+                $(".humidity").text("Humidity: " + response.main.humidity + "%");
+                $(".windspeed").text("Windspeed: " + response.wind.speed + " MPH"); 
+                cLat = response.coord.lat;
+                cLon = response.coord.lon;
+
+                var uvURL = "http://api.openweathermap.org/data/2.5/uvi?lat="+ cLat + "&lon=" + cLon + key; 
+                console.log ("url:", uvURL);
+                $.ajax({
+                        url: uvURL,
+                        method: "GET"
+                    }).then(function(uvResponse) {
+                        $(".UV").text("UV Index: " + uvResponse.value);
+                });
+            });
+
+            var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q="+ city + key; 
+            console.log ("url:", queryURL);
+            $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response) {
+                    $("UV").text("UV Index: " + response.value);
+            });
+
+        }
+
+        function cityList() {
+        // retrieve stored cites from local storage and update list
+            var cityEl
+            storedCities = JSON.parse(localStorage.getItem("cityList"));
+            console.log("Stored city ", storedCities);
+            if (storedCities != null) {
+                cities = storedCities;
+                for (i=0; i<storedCities.length; i++) {
+                    console.log("append city ", storedCities[i]);
+                    cityEl = $("<lu>");
+                    cityEl.addClass("cityList");
+                    cityEl.attr("city", storedCities[i]);
+                    cityEl.text(storedCities[i]);
+                    $("#cityList").append(cityEl);
+                }
+            }
+        }
+        
+        cityList();
+
+        // When search button is pressed, 
+        // store city and get weather
+        $("#search-button").on("click", function(event) {
+            event.preventDefault(); 
+            var city = $(".form-control").val().trim();
+            console.log("city ", city);
+            if (city != "") {
+                cities.push(city);
+                localStorage.setItem("cityList", JSON.stringify(cities));
+                console.log("add city ", city);
+                cityList();
+                getCityWeather(city);
+            }
+        });
+        // build search history city list buttons
+
+        $(".cityList").on("click", function(event) {
+            event.preventDefault(); 
+            var city = $(this).attr("city");
+            console.log("selected city ", city);
+            getCityWeather(city);
+        });
+
+    </script>
+
+</body>
+
+</html>

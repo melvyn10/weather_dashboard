@@ -1,0 +1,66 @@
+/*
+** This is the CSS for the web pages
+*/
+
+
+.heading {
+  background-color: #3c3c3c;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+
+.container-aside {
+  background-color: white;
+}
+
+h1 {
+  color: teal;
+}
+
+h2 {
+    font-size: 20px;
+    color: black;
+  }
+h3 {
+    font-size: 20px;
+    color: black;
+  }
+
+
+/* form input boxes */
+input{
+    width: 75%;
+    resize: vertical;
+  }
+  
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  /*
+  ** css styles only on portofolio
+  */
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {margin: 0 -5px;}
+
+
+/* Style the cards */
+.card {
+  text-align: left;
+  background-color: white;
+  width: 350px;
+  height: 350px; 
+}
