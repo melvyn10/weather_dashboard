@@ -2,20 +2,23 @@
 ** This is the CSS for the web pages
 */
 
-
-.heading {
+header {
   background-color: #3c3c3c;
   color: #ffffff;
   text-align: center;
-  padding: 10px;
+  font-size: 40px;
+  padding: 1px;
 }
 
 .container-aside {
   background-color: white;
+  padding-top: 2%;
+  padding-left: 1%;
 }
 
 h1 {
-  color: teal;
+  color: black;
+  padding-bottom: 3%;
 }
 
 h2 {
@@ -27,6 +30,56 @@ h3 {
     color: black;
   }
 
+h4 {
+    font-size: 20px;
+    color: white;
+  }
+
+ul:hover {
+    color: black;
+    background-color: whitesmoke;
+    width: 42%;
+    cursor: pointer;
+}
+.listGroup {
+    list-style-type: none
+    border-spacing: 2px;
+    color: black;
+    background-color: whitesmoke;
+    width: 42%;
+    padding: 5%
+}
+/*
+** Forecast card style
+*/
+.card-body {
+    color: white;
+}
+
+#forecastDate1 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#forecastDate2 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#forecastDate3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#forecastDate4 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#forecastDate5 {
+    font-weight: bold;
+    font-size: 20px;
+}
 
 /* form input boxes */
 input{
@@ -34,24 +87,6 @@ input{
     resize: vertical;
   }
   
-/* Style the submit button with a specific background color etc */
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  /* When moving the mouse over the submit button, add a darker green color */
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-  
-  /*
-  ** css styles only on portofolio
-  */
 
 /* Remove extra left and right margins, due to padding in columns */
 .row {margin: 0 -5px;}
