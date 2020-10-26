@@ -35,6 +35,36 @@ h4 {
     color: white;
   }
 
+.extreme {
+    background-color: violet;
+    border-radius: 10%;
+    width: 16%;
+  }
+
+.vHigh {
+    background-color: red;
+    border-radius: 10%;
+    width: 16%;
+  }
+
+.high {
+    background-color: orange;
+    border-radius: 10%;
+    width: 16%;
+  }
+
+.moderate {
+    background-color: yellow;
+    border-radius: 10%;
+    width: 16%;
+  }
+
+.low {
+    background-color: green;
+    border-radius: 10%;
+    width: 16%;
+  }
+
 ul:hover {
     color: black;
     background-color: whitesmoke;

@@ -47,11 +47,11 @@
                 <div class="jumbotron jumbotron-fluid">
                     <div class="container">
                     <!-- Retrieved data will be dumped here -->
-                        <h1 class="city"></h1>
-                        <h3 class="temp"></h3>
-                        <h3 class="humidity"></h3>
-                        <h3 class="windspeed"></h3>
-                        <h3 class="UV"></h3>
+                        <h1 id="city"></h1>
+                        <h3 id="temp"></h3>
+                        <h3 id="humidity"></h3>
+                        <h3 id="windspeed"></h3>
+                        <h3 id="uv"></h3>
                     </div>
                 </div>
                 <!-- five day forecast -->
@@ -114,26 +114,38 @@
                      "src",
                      "https://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
 
-                $(".city").text(response.name + "(" + moment().format('MM/DD/YYYY') +") ");
-                $(".city").append(weatherIcon);
-                $(".temp").html("Temperature: " + response.main.temp.toFixed(2) + "&#8457 ");
-                $(".humidity").text("Humidity: " + response.main.humidity + "%");
-                $(".windspeed").text("Windspeed: " + response.wind.speed + " MPH"); 
+                $("#city").text(response.name + "(" + moment().format('MM/DD/YYYY') +") ");
+                $("#city").append(weatherIcon);
+                $("#temp").html("Temperature: " + response.main.temp.toFixed(2) + "&#8457 ");
+                $("#humidity").text("Humidity: " + response.main.humidity + "%");
+                $("#windspeed").text("Windspeed: " + response.wind.speed + " MPH"); 
                 cLat = response.coord.lat;
                 cLon = response.coord.lon;
 
-                var uvURL = "http://api.openweathermap.org/data/2.5/uvi?lat="+ cLat + "&lon=" + cLon + key; 
+                var uvURL = "https://api.openweathermap.org/data/2.5/uvi?lat="+ cLat + "&lon=" + cLon + key; 
                 //console.log ("url:", uvURL);
                 $.ajax({
                         url: uvURL,
                         method: "GET"
                     }).then(function(uvResponse) {
-                        $(".UV").text("UV Index: " + uvResponse.value);
+                        $("#uv").removeClass("extreme cHigh high moderate low");
+                        //$("#uv").removeClass("vHigh");
+                        //$("#uv").removeClass("high");
+                        //$("#uv").removeClass("moderate");
+                        //$("#uv").removeClass("low");
+                        
+                        if (uvResponse.value > 11) $("#uv").addClass("extreme");
+                        if (uvResponse.value <= 11 && uvResponse.value > 8) $("#uv").addClass("vHigh");
+                        if (uvResponse.value <= 8 && uvResponse.value > 6) $("#uv").addClass("high");
+                        if (uvResponse.value <= 6 && uvResponse.value > 2) $("#uv").addClass("moderate");
+                        if (uvResponse.value <= 2) $("#uv").addClass("low");
+                        $("#uv").text("UV Index: " + uvResponse.value);
+                        
                 });
             });
 
             // 5-day foreacst
-            var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q="+ city + "&units=" + unit + key; 
+            var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+ city + "&units=" + unit + key; 
             //console.log ("url:", queryURL);
             $.ajax({
                     url: queryURL,
