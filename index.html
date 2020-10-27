@@ -129,10 +129,6 @@
                         method: "GET"
                     }).then(function(uvResponse) {
                         $("#uv").removeClass("extreme cHigh high moderate low");
-                        //$("#uv").removeClass("vHigh");
-                        //$("#uv").removeClass("high");
-                        //$("#uv").removeClass("moderate");
-                        //$("#uv").removeClass("low");
                         
                         if (uvResponse.value > 11) $("#uv").addClass("extreme");
                         if (uvResponse.value <= 11 && uvResponse.value > 8) $("#uv").addClass("vHigh");
