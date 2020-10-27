@@ -28,8 +28,8 @@ Create a GitHub account on github.com.
 Create a new repository in your GitHub application. 
 Download the files
 Publish the website in GitHub
-![image](https://github.com/melvyn10/weather_dashboard/blob/main/asset/imageLowAlaska.gif)
+![image](https://github.com/melvyn10/weather_dashboard/tree/main/asset/Images/imageLowAlaska.gif)
 
-![image](https://github.com/melvyn10/weather_dashboard/blob/main/asset/imageModerateAtlanta.gif)
+![image](https://github.com/melvyn10/weather_dashboard/tree/main/asset/Images/imageModerateAtlanta.gif)
 
-![image](https://github.com/melvyn10/weather_dashboard/blob/main/asset/imageVHighSidney.gif)
+![image](https://github.com/melvyn10/weather_dashboard/tree/main/asset/Images/imageVHighSidney.gif)
